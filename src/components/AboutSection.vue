@@ -1,4 +1,7 @@
 <script setup>
+import SectionHeader from './ui/SectionHeader.vue'
+import TiltCard from './ui/TiltCard.vue'
+
 const props = defineProps({
   bio: {
     type: String,
@@ -14,45 +17,61 @@ const props = defineProps({
     ],
   },
 })
+
 </script>
 
 <template>
-  <section id="about" class="relative rounded-3xl border border-slate-200 bg-white px-6 py-10 transition-colors dark:border-slate-800/70 dark:bg-slate-950/80 sm:px-10">
-    <div class="mb-6 flex items-center justify-between gap-4">
-      <div>
-        <h2 class="text-lg font-semibold tracking-tight text-slate-900 transition-colors dark:text-slate-50 sm:text-xl">About Me</h2>
-        <p class="text-sm text-slate-600 transition-colors dark:text-slate-400">A quick snapshot of who I am and how I work.</p>
-      </div>
-      <span
-        class="hidden rounded-full bg-slate-100 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-slate-700 transition-colors dark:bg-slate-900/80 dark:text-slate-300 sm:inline-flex"
-        >Overview</span
-      >
-    </div>
+  <section id="about" class="glass-card glow-border relative px-6 py-10 sm:px-10">
+    <SectionHeader
+      title="About Me"
+      subtitle="A quick snapshot of who I am and how I work."
+      badge="Overview"
+    />
 
-    <div class="grid gap-6 sm:gap-8 lg:grid-cols-[minmax(0,3fr)_minmax(0,2.4fr)]">
-      <p class="max-w-xl text-sm leading-relaxed text-slate-700 transition-colors dark:text-slate-200 sm:text-[15px]">
-        {{ bio }}
-      </p>
-
-      <div
-        class="relative rounded-2xl border-2 border-slate-200 bg-gradient-to-br from-slate-50 to-white p-5 shadow-lg shadow-slate-200/50 transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02] hover:border-primary-400/60 hover:shadow-2xl hover:shadow-primary-500/20 dark:border-slate-800/70 dark:from-slate-900/70 dark:to-slate-950 dark:shadow-slate-900/60 dark:hover:border-primary-500/60"
-      >
-        <div class="mb-4 flex items-center justify-between gap-4">
-          <p class="text-xs font-medium uppercase tracking-[0.2em] text-slate-500 transition-colors dark:text-slate-400">Highlights</p>
-          <span class="text-[11px] text-slate-400 transition-colors dark:text-slate-500">Education Background</span>
+    <div class="grid gap-8 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,2fr)] lg:items-start">
+      <!-- Profile visual -->
+      <div class="reveal relative mx-auto w-full max-w-xs lg:mx-0">
+        <div class="relative overflow-hidden rounded-3xl border border-primary-500/20 shadow-soft-xl">
+          <img
+            src="/me.jpg"
+            alt="Min Thant Ko"
+            class="aspect-[4/5] w-full object-cover"
+            loading="lazy"
+            width="320"
+            height="400"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-brand-bg-dark/60 via-transparent to-transparent"></div>
         </div>
+        <div
+          class="profile-badge absolute -bottom-4 -right-4 rounded-2xl px-4 py-3 shadow-glass-light backdrop-blur-xl dark:shadow-glass-dark"
+        >
+          <p class="text-xs font-semibold">Min Thant Ko</p>
+          <p class="text-[10px] opacity-70">Full Stack Developer</p>
+        </div>
+      </div>
 
-        <ul class="space-y-3 text-xs text-slate-700 transition-colors dark:text-slate-200">
-          <li v-for="item in highlights" :key="item" class="flex gap-3">
-            <span class="mt-[5px] h-1.5 w-1.5 flex-shrink-0 rounded-full bg-gradient-to-br from-primary-400 to-emerald-400">
-            </span>
-            <span class="leading-relaxed">
-              {{ item }}
-            </span>
-          </li>
-        </ul>
+      <div class="space-y-6">
+        <p class="reveal body-text leading-relaxed text-brand-text-light/80 dark:text-brand-text-dark/80">
+          {{ bio }}
+        </p>
+
+        <TiltCard>
+          <div
+            class="reveal rounded-2xl border border-primary-500/20 bg-white/40 p-6 transition-all duration-300 hover:border-primary-500/40 hover:shadow-glow dark:bg-brand-surface/40"
+          >
+            <div class="mb-4 flex items-center justify-between gap-4">
+              <p class="text-xs font-semibold uppercase tracking-[0.2em] text-primary-600 dark:text-primary-300">Highlights</p>
+              <span class="text-[11px] text-brand-text-light/50 dark:text-brand-text-dark/50">Education Background</span>
+            </div>
+            <ul class="space-y-4">
+              <li v-for="item in highlights" :key="item" class="flex gap-3">
+                <span class="mt-2 h-2 w-2 flex-shrink-0 rounded-full bg-gradient-to-br from-primary-500 to-primary-300 shadow-glow"></span>
+                <span class="text-sm leading-relaxed text-brand-text-light/80 dark:text-brand-text-dark/80">{{ item }}</span>
+              </li>
+            </ul>
+          </div>
+        </TiltCard>
       </div>
     </div>
   </section>
 </template>
-

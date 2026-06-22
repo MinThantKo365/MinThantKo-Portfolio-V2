@@ -1,7 +1,10 @@
 <script setup>
-const props = defineProps({
+import SectionHeader from './ui/SectionHeader.vue'
+import TiltCard from './ui/TiltCard.vue'
+
+defineProps({
   email: { type: String, default: 'mr.minthantko@gmail.com' },
-  phone: { type: String, default: '09 401841741' },
+  phone: { type: String, default: '+95 9 401841741' },
   socials: {
     type: Array,
     default: () => [
@@ -25,105 +28,100 @@ const getIcon = (iconName) => {
 </script>
 
 <template>
-  <section id="contact" class="relative rounded-3xl border border-slate-200 bg-white px-6 py-10 transition-colors dark:border-slate-800/70 dark:bg-slate-950/80 sm:px-10">
-    <div class="mb-6 flex items-center justify-between gap-4">
-      <div>
-        <h2 class="text-lg font-semibold tracking-tight text-slate-900 transition-colors dark:text-slate-50 sm:text-xl">Contact</h2>
-        <p class="text-sm text-slate-600 transition-colors dark:text-slate-400">Let's talk about your next project or collaboration.</p>
-      </div>
-      <!-- <span class="hidden text-xs text-slate-500 transition-colors dark:text-slate-500 sm:inline">Replies within 24–48 hours</span> -->
-    </div>
+  <section id="contact" class="glass-card glow-border relative px-6 py-10 sm:px-10">
+    <SectionHeader
+      title="Contact"
+      subtitle="Let's talk about your next project or collaboration."
+    />
 
     <div class="grid gap-8 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]">
-      <div class="space-y-6 text-sm text-slate-700 transition-colors dark:text-slate-300">
-        <div>
-          <h3 class="mb-3 text-base font-semibold text-slate-900 dark:text-slate-50">Get in Touch</h3>
-          <p class="mb-4">
+      <div class="space-y-6">
+        <div class="reveal">
+          <h3 class="mb-3 text-base font-semibold text-brand-text-light dark:text-brand-text-dark">Get in Touch</h3>
+          <p class="body-text mb-4 text-brand-text-light/75 dark:text-brand-text-dark/75">
             Reach out directly at
             <a
               :href="`mailto:${email}`"
-              class="font-medium text-primary-600 underline-offset-2 transition-colors hover:text-primary-700 hover:underline dark:text-primary-300 dark:hover:text-primary-200"
-              >{{ email }}</a
-            >
+              class="font-medium text-primary-600 underline-offset-2 transition-colors hover:text-primary-500 hover:underline dark:text-primary-300"
+              data-cursor="link"
+            >{{ email }}</a>
           </p>
-          <p class="text-slate-600 transition-colors dark:text-slate-300">
+          <!-- <p class="text-brand-text-light/75 dark:text-brand-text-dark/75">
             Phone:
             <span class="font-medium">{{ phone }}</span>
-          </p>
+          </p> -->
         </div>
 
-        <div>
-          <h3 class="mb-4 text-base font-semibold text-slate-900 dark:text-slate-50">Connect with Me</h3>
-          <div class="flex flex-wrap gap-4">
+        <div class="reveal">
+          <h3 class="mb-4 text-base font-semibold text-brand-text-light dark:text-brand-text-dark">Connect with Me</h3>
+          <div class="grid gap-3 sm:grid-cols-2">
             <a
               v-for="social in socials"
               :key="social.label"
               :href="social.href"
               target="_blank"
               rel="noopener noreferrer"
-              class="group flex items-center gap-3 rounded-xl border-2 border-slate-200 bg-white px-5 py-3 shadow-lg transition-all hover:-translate-y-1 hover:scale-105 hover:border-primary-400/80 hover:bg-primary-50 hover:shadow-xl dark:border-slate-800 dark:bg-slate-900 dark:hover:border-primary-500/60 dark:hover:bg-slate-800"
+              class="group flex min-h-[44px] items-center gap-3 rounded-xl border border-primary-500/20 bg-white/40 px-5 py-3.5 transition-all duration-300 hover:border-primary-500/40 hover:bg-primary-500/10 hover:shadow-glow dark:bg-brand-surface/40"
+              data-cursor="link"
             >
               <svg
-                class="h-6 w-6 text-slate-600 transition-colors group-hover:text-primary-600 dark:text-slate-400 dark:group-hover:text-primary-400"
+                class="h-5 w-5 text-primary-600 transition-colors group-hover:text-primary-500 dark:text-primary-300"
                 fill="currentColor"
                 viewBox="0 0 24 24"
               >
                 <path :d="getIcon(social.icon)" />
               </svg>
-              <span class="text-sm font-medium text-slate-700 transition-colors group-hover:text-primary-600 dark:text-slate-300 dark:group-hover:text-primary-400">
+              <span class="text-sm font-medium text-brand-text-light group-hover:text-primary-600 dark:text-brand-text-dark dark:group-hover:text-primary-300">
                 {{ social.label }}
               </span>
             </a>
           </div>
         </div>
 
-        <div class="pt-4">
+        <div class="reveal pt-2">
           <a
             href="/src/assets/MinThantKo_CV.pdf"
             download="MinThantKo_CV.pdf"
             target="_blank"
-            class="inline-flex items-center gap-2 rounded-xl border-2 border-primary-500 bg-primary-500 px-5 py-3 text-sm font-semibold text-white shadow-lg transition-all hover:scale-105 hover:bg-primary-600 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2 dark:bg-primary-600 dark:hover:bg-primary-500"
+            class="btn-primary"
+            data-cursor="button"
           >
-            <svg
-              class="h-5 w-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-              ></path>
+            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
             </svg>
             Download My Resume
           </a>
         </div>
       </div>
 
-      <div class="rounded-2xl border-2 border-slate-200 bg-gradient-to-br from-slate-50 to-white p-8 shadow-lg transition-colors dark:border-slate-800 dark:from-slate-900 dark:to-slate-950">
-        <h3 class="mb-4 text-lg font-semibold text-slate-900 dark:text-slate-50">Let's Work Together</h3>
-        <p class="mb-6 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
-          I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions. Feel free to reach out through any of the social links or email me directly.
-        </p>
-        <div class="space-y-3">
-          <div class="flex items-center gap-3 rounded-lg bg-white p-3 shadow-sm dark:bg-slate-800">
-            <svg class="h-5 w-5 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-            </svg>
-            <span class="text-sm text-slate-700 dark:text-slate-300">{{ email }}</span>
-          </div>
-          <div class="flex items-center gap-3 rounded-lg bg-white p-3 shadow-sm dark:bg-slate-800">
-            <svg class="h-5 w-5 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-            </svg>
-            <span class="text-sm text-slate-700 dark:text-slate-300">{{ phone }}</span>
+      <TiltCard>
+        <div
+          class="reveal rounded-2xl border border-primary-500/20 bg-white/40 p-8 backdrop-blur-xl transition-all duration-300 hover:border-primary-500/30 hover:shadow-glow dark:bg-brand-surface/40"
+        >
+          <h3 class="mb-4 text-lg font-semibold text-brand-text-light dark:text-brand-text-dark">Let's Work Together</h3>
+          <p class="mb-6 text-sm leading-relaxed text-brand-text-light/70 dark:text-brand-text-dark/70">
+            I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions. Feel free to reach out through any of the social links or email me directly.
+          </p>
+          <div class="space-y-3">
+            <div class="group flex items-center gap-3 rounded-xl border border-primary-500/15 bg-primary-500/5 p-4 transition-all duration-300 hover:border-primary-500/30 hover:bg-primary-500/10">
+              <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-primary-500/15 text-primary-600 dark:text-primary-300">
+                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <span class="text-sm text-brand-text-light/80 dark:text-brand-text-dark/80">{{ email }}</span>
+            </div>
+            <div class="group flex items-center gap-3 rounded-xl border border-primary-500/15 bg-primary-500/5 p-4 transition-all duration-300 hover:border-primary-500/30 hover:bg-primary-500/10">
+              <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-primary-500/15 text-primary-600 dark:text-primary-300">
+                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                </svg>
+              </div>
+              <span class="text-sm text-brand-text-light/80 dark:text-brand-text-dark/80">{{ phone }}</span>
+            </div>
           </div>
         </div>
-      </div>
+      </TiltCard>
     </div>
   </section>
 </template>
-

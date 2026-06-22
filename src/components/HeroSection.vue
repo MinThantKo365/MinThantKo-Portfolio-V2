@@ -1,4 +1,6 @@
 <script setup>
+import MagneticButton from './ui/MagneticButton.vue'
+
 const props = defineProps({
   name: { type: String, default: 'Min Thant Ko' },
   title: { type: String, default: 'Full Stack Developer | AI Developer' },
@@ -8,96 +10,93 @@ const props = defineProps({
       'Full Stack Developer currently building web applications and exploring cloud computing, with a strong focus on Laravel, Vue.js, and scalable backend systems.',
   },
 })
+
+const socials = [
+  { label: 'GitHub', href: 'https://github.com/MinThantKo365', icon: 'fa-github' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/min-thant-ko-05549a35a/', icon: 'fa-linkedin' },
+  { label: 'Telegram', href: 'https://t.me/MTK365', icon: 'fa-telegram' },
+]
 </script>
 
 <template>
   <section
     id="hero"
-    class="relative overflow-hidden rounded-3xl border border-slate-200 bg-gradient-to-b from-slate-50 via-white to-slate-100 px-6 py-12 shadow-soft-lg transition-colors duration-300 dark:border-slate-800/70 dark:from-slate-900/80 dark:via-slate-950 dark:to-black sm:px-10 sm:py-16 lg:px-14 lg:py-20"
+    class="glass-card glow-border relative overflow-hidden px-6 py-14 sm:px-10 sm:py-20 lg:px-14 lg:py-24"
   >
-    <!-- background orbs / gradient blobs -->
-    <div
-      class="pointer-events-none absolute -left-40 -top-40 h-72 w-72 rounded-full bg-primary-500/20 blur-3xl"
-    ></div>
-    <div
-      class="pointer-events-none absolute -right-44 top-10 h-80 w-80 rounded-full bg-fuchsia-500/20 blur-3xl"
-    ></div>
-    <div
-      class="pointer-events-none absolute bottom-0 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-cyan-500/15 blur-3xl"
-    ></div>
+    <!-- Floating decorative elements -->
+    <div class="pointer-events-none absolute right-10 top-20 h-20 w-20 rounded-2xl border border-primary-500/20 bg-primary-500/5 animate-float-slow"></div>
+    <div class="pointer-events-none absolute bottom-16 left-8 h-14 w-14 rounded-full border border-primary-300/20 bg-primary-300/10 animate-float-medium"></div>
 
-    <!-- animated grid overlay -->
-    <div
-      class="pointer-events-none absolute inset-0 opacity-25 [mask-image:radial-gradient(circle_at_top,_black,_transparent_65%)]"
-    >
+    <div class="relative z-10 flex flex-col items-center gap-10 lg:grid lg:grid-cols-[minmax(0,3fr)_minmax(0,2.3fr)] lg:items-center lg:gap-14">
+      <!-- Profile image — first on mobile -->
       <div
-        class="animate-[spin_30s_linear_infinite] bg-[radial-gradient(circle_at_center,_rgba(148,163,184,0.22)_1px,_transparent_1px)] bg-[size:22px_22px] h-full w-full"
-      ></div>
-    </div>
+        class="reveal-scale order-1 mx-auto flex h-48 w-48 items-center justify-center overflow-visible sm:h-56 sm:w-56 lg:order-2 lg:h-72 lg:w-72"
+      >
+        <div class="relative h-full w-full animate-float-slow">
+          <div class="shining-wave-border"></div>
+          <div class="relative z-10 h-full w-full overflow-hidden rounded-[2.5rem] shadow-soft-xl dark:shadow-glow">
+            <img
+              src="/me.jpg"
+              alt="Min Thant Ko"
+              class="h-full w-full object-cover"
+              loading="eager"
+              width="400"
+              height="400"
+            />
+            <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-brand-bg-dark/50 via-transparent to-transparent"></div>
+          </div>
+        </div>
+      </div>
 
-    <div class="relative z-10 grid gap-8 lg:grid-cols-[minmax(0,3fr)_minmax(0,2.3fr)] lg:items-center lg:gap-12">
-      <div class="space-y-6 sm:space-y-8">
+      <!-- Content -->
+      <div class="order-2 space-y-6 text-center lg:order-1 lg:text-left sm:space-y-8">
         <p
-          class="inline-flex items-center gap-2 rounded-full border border-emerald-400/40 bg-emerald-50 px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-emerald-700 shadow-lg shadow-emerald-500/20 backdrop-blur transition-colors dark:bg-slate-900/70 dark:text-emerald-200/90"
+          class="reveal inline-flex items-center gap-2 rounded-full border border-primary-500/25 bg-primary-500/10 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.18em] text-primary-700 dark:text-primary-200"
         >
-          <span
-            class="h-1.5 w-1.5 animate-[pulse_1.4s_ease-in-out_infinite] rounded-full bg-emerald-400"
-          ></span>
+          <span class="h-1.5 w-1.5 animate-pulse rounded-full bg-primary-500"></span>
           Available for new opportunities
         </p>
 
-        <div class="space-y-4 sm:space-y-5">
-          <h1
-            class="text-balance text-3xl font-semibold tracking-tight text-slate-900 transition-colors dark:text-slate-50 sm:text-4xl md:text-5xl lg:text-6xl"
-          >
-            {{ name }}
+        <div class="space-y-4">
+          <h1 class="reveal hero-title">
+            <span class="gradient-text">{{ name }}</span>
           </h1>
-          <p class="text-base font-medium uppercase tracking-[0.25em] text-primary-600 transition-colors dark:text-primary-200/80 sm:text-lg">
+          <p
+            class="reveal text-base font-semibold uppercase tracking-[0.2em] text-primary-600 transition-all duration-500 dark:text-primary-300 sm:text-lg"
+            data-cursor="text"
+          >
             {{ title }}
           </p>
-          <p class="max-w-xl text-sm text-slate-600 transition-colors dark:text-slate-300 sm:text-base md:text-lg">
+          <p class="reveal body-text mx-auto max-w-xl text-brand-text-light/70 dark:text-brand-text-dark/70 lg:mx-0">
             {{ subtitle }}
           </p>
         </div>
 
-        <div class="flex flex-wrap items-center gap-3 sm:gap-4">
-          <a
-            href="#projects"
-            class="group inline-flex items-center gap-2 rounded-full bg-primary-500 px-5 py-2.5 text-xs font-semibold tracking-wide text-white shadow-[0_18px_45px_rgba(37,99,235,0.55)] transition-all hover:-translate-y-1 hover:scale-105 hover:bg-primary-400 hover:shadow-[0_24px_60px_rgba(37,99,235,0.65)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-400/80 focus-visible:ring-offset-2 sm:px-6 sm:py-3 sm:text-sm focus-visible:ring-offset-slate-950"
-          >
+        <div class="reveal flex flex-wrap items-center justify-center gap-3 lg:justify-start sm:gap-4">
+          <MagneticButton href="#projects" class="btn-primary">
             View Projects
-            <span
-              class="inline-flex h-5 w-5 items-center justify-center rounded-full bg-primary-400/90 text-[11px] transition-transform group-hover:translate-x-0.5"
-              ><i class="fa-solid fa-angle-right"></i></span
-            >
-          </a>
-
-          <a
-            href="#contact"
-            class="inline-flex items-center gap-2 rounded-full border-2 border-slate-300 bg-slate-50 px-4 py-2.5 text-xs font-medium text-slate-700 shadow-lg transition-all hover:-translate-y-1 hover:scale-105 hover:border-primary-400/80 hover:bg-slate-100 hover:text-slate-900 hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-400/80 focus-visible:ring-offset-2 sm:px-5 sm:py-3 sm:text-sm focus-visible:ring-offset-white dark:border-slate-600/80 dark:bg-slate-900/70 dark:text-slate-100 dark:hover:text-white dark:focus-visible:ring-offset-slate-950"
-          >
+            <i class="fa-solid fa-arrow-right text-xs"></i>
+          </MagneticButton>
+          <MagneticButton href="#contact" class="btn-secondary">
             Contact Me
-          </a>
+          </MagneticButton>
         </div>
 
-      </div>
-
-      <div
-        class="relative mx-auto flex h-56 w-56 items-center justify-center overflow-visible rounded-[2.5rem] sm:h-64 sm:w-64 md:h-72 md:w-72 lg:h-[20rem] lg:w-[20rem]"
-      >
-        <div class="shining-wave-border"></div>
-        <div class="relative z-10 h-full w-full overflow-hidden rounded-[2.5rem] bg-slate-50 shadow-[0_24px_80px_rgba(0,0,0,0.15)] backdrop-blur-sm dark:bg-slate-900/60 dark:shadow-[0_24px_80px_rgba(15,23,42,0.7)]">
-          <img
-            src="/me.jpg"
-            alt="Min Thant Ko"
-            class="h-full w-full object-cover"
-          />
-          <div
-            class="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent"
-          ></div>
+        <div class="reveal flex items-center justify-center gap-3 lg:justify-start">
+          <a
+            v-for="social in socials"
+            :key="social.label"
+            :href="social.href"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex h-11 w-11 items-center justify-center rounded-xl border border-primary-500/20 bg-primary-500/10 text-primary-700 transition-all duration-300 hover:border-primary-500/50 hover:bg-primary-500/20 hover:shadow-glow dark:text-primary-300"
+            :aria-label="social.label"
+            data-cursor="link"
+          >
+            <i :class="['fab', social.icon]"></i>
+          </a>
         </div>
       </div>
     </div>
   </section>
 </template>
-

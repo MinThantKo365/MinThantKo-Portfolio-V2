@@ -1,4 +1,8 @@
 <script setup>
+import { ref, onMounted, onUnmounted } from 'vue'
+import SectionHeader from './ui/SectionHeader.vue'
+import TiltCard from './ui/TiltCard.vue'
+
 const props = defineProps({
   experiences: {
     type: Array,
@@ -20,47 +24,77 @@ const props = defineProps({
     ],
   },
 })
+
+const timelineRef = ref(null)
+const lineHeight = ref(0)
+
+const updateTimeline = () => {
+  if (!timelineRef.value) return
+  const rect = timelineRef.value.getBoundingClientRect()
+  const windowHeight = window.innerHeight
+  const start = rect.top
+  const total = rect.height
+  const scrolled = windowHeight * 0.6 - start
+  lineHeight.value = Math.max(0, Math.min(scrolled, total))
+}
+
+onMounted(() => {
+  window.addEventListener('scroll', updateTimeline, { passive: true })
+  updateTimeline()
+})
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', updateTimeline)
+})
 </script>
 
 <template>
-  <section
-    id="experience"
-    class="relative rounded-3xl border border-slate-200 bg-white px-6 py-10 transition-colors dark:border-slate-800/70 dark:bg-slate-950/80 sm:px-10"
-  >
-    <div class="mb-6 flex items-center justify-between gap-4">
-      <div>
-        <h2 class="text-lg font-semibold tracking-tight text-slate-900 transition-colors dark:text-slate-50 sm:text-xl">Work Experience</h2>
-        <p class="text-sm text-slate-600 transition-colors dark:text-slate-400">Recent roles and responsibilities.</p>
-      </div>
-    </div>
+  <section id="experience" class="glass-card glow-border relative px-6 py-10 sm:px-10">
+    <SectionHeader
+      title="Work Experience"
+      subtitle="Recent roles and responsibilities."
+    />
 
-    <ol class="space-y-4 border-l border-slate-300 pl-4 transition-colors dark:border-slate-800/80 sm:pl-5">
-      <li
-        v-for="item in experiences"
-        :key="item.role + item.company"
-        class="group relative rounded-2xl border-2 border-transparent bg-gradient-to-br from-slate-50 to-white p-4 shadow-md transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02] hover:border-primary-400/60 hover:bg-gradient-to-br hover:from-slate-100 hover:to-slate-50 hover:shadow-xl hover:shadow-primary-500/20 dark:from-slate-900/40 dark:to-slate-950 dark:hover:border-primary-500/60 dark:hover:from-slate-900/80 dark:hover:to-slate-900/60"
-      >
-        <span
-          class="absolute -left-[9px] top-4 h-3 w-3 rounded-full border border-white bg-gradient-to-br from-primary-400 to-emerald-400 shadow-[0_0_0_4px_rgba(255,255,255,0.95)] transition-colors dark:border-slate-900/80 dark:shadow-[0_0_0_4px_rgba(15,23,42,0.95)]"
-        ></span>
-        <header class="mb-1 flex flex-wrap items-baseline justify-between gap-3">
-          <div>
-            <h3 class="text-sm font-semibold tracking-tight text-slate-900 transition-colors dark:text-slate-50">
-              {{ item.role }}
-            </h3>
-            <p class="text-xs text-slate-600 transition-colors dark:text-slate-400">
-              {{ item.company }}
-            </p>
-          </div>
-          <p class="text-[11px] uppercase tracking-[0.18em] text-slate-500 transition-colors dark:text-slate-400">
-            {{ item.period }}
-          </p>
-        </header>
-        <p class="text-xs leading-relaxed text-slate-700 transition-colors dark:text-slate-300">
-          {{ item.summary }}
-        </p>
-      </li>
-    </ol>
+    <div ref="timelineRef" class="relative pl-8 sm:pl-12">
+      <!-- Background line -->
+      <div class="absolute left-3 top-0 h-full w-0.5 bg-primary-500/15 sm:left-5"></div>
+      <!-- Animated progress line -->
+      <div
+        class="timeline-line absolute left-3 sm:left-5"
+        :style="{ height: `${lineHeight}px` }"
+      ></div>
+
+      <ol class="space-y-6">
+        <li v-for="(item, index) in experiences" :key="item.role + item.company">
+          <TiltCard>
+            <article
+              class="reveal group relative rounded-2xl border border-primary-500/20 bg-white/40 p-5 transition-all duration-300 hover:border-primary-500/40 hover:shadow-glow dark:bg-brand-surface/40"
+              :style="{ transitionDelay: `${index * 100}ms` }"
+            >
+              <span
+                class="absolute -left-[1.65rem] top-6 flex h-4 w-4 items-center justify-center rounded-full border-2 border-brand-bg-light bg-primary-500 shadow-glow dark:border-brand-bg-dark sm:-left-[2.15rem]"
+              >
+                <span class="h-1.5 w-1.5 rounded-full bg-white"></span>
+              </span>
+
+              <header class="mb-2 flex flex-wrap items-baseline justify-between gap-3">
+                <div>
+                  <h3 class="text-sm font-semibold text-brand-text-light dark:text-brand-text-dark sm:text-base">
+                    {{ item.role }}
+                  </h3>
+                  <p class="text-xs text-brand-text-light/60 dark:text-brand-text-dark/60">{{ item.company }}</p>
+                </div>
+                <p class="text-[11px] uppercase tracking-[0.16em] text-primary-600/70 dark:text-primary-300/70">
+                  {{ item.period }}
+                </p>
+              </header>
+              <p class="text-sm leading-relaxed text-brand-text-light/75 dark:text-brand-text-dark/75">
+                {{ item.summary }}
+              </p>
+            </article>
+          </TiltCard>
+        </li>
+      </ol>
+    </div>
   </section>
 </template>
-
