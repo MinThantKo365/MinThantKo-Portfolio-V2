@@ -27,6 +27,14 @@ const animate = () => {
 }
 
 onMounted(() => {
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+  if (prefersReduced) {
+    displayValue.value = props.end
+    hasAnimated = true
+    return
+  }
+
   const observer = new IntersectionObserver(
     ([entry]) => {
       if (entry.isIntersecting) {
@@ -34,7 +42,7 @@ onMounted(() => {
         observer.disconnect()
       }
     },
-    { threshold: 0.5 },
+    { threshold: 0.12, rootMargin: '0px 0px -40px 0px' },
   )
   if (counterRef.value) observer.observe(counterRef.value)
 })
