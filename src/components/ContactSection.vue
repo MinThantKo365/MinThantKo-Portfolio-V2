@@ -81,7 +81,7 @@ const getIcon = (iconName) => {
         <div class="reveal pt-2">
           <a
             href="/public/MinThantKo_CV.pdf"
-            download
+            download="MinThantKo_CV.pdf"
             target="_blank"
             class="btn-primary"
             data-cursor="button"
