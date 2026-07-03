@@ -80,7 +80,7 @@ const getIcon = (iconName) => {
 
         <div class="reveal pt-2">
           <a
-            href="../assets/MinThantKo_CV.pdf"
+            href="/MinThantKo_CV.pdf"
             download="MinThantKo_CV.pdf"
             target="_blank"
             class="btn-primary"
