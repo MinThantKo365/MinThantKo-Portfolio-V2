@@ -1,12 +1,7 @@
 <script setup>
+import { watch, nextTick } from 'vue'
+import { useRoute } from 'vue-router'
 import Navbar from './components/Navbar.vue'
-import HeroSection from './components/HeroSection.vue'
-import AboutSection from './components/AboutSection.vue'
-import SkillsSection from './components/SkillsSection.vue'
-import ProjectsSection from './components/ProjectsSection.vue'
-import ExperienceSection from './components/ExperienceSection.vue'
-import AchievementsSection from './components/AchievementsSection.vue'
-import ContactSection from './components/ContactSection.vue'
 import FooterSection from './components/FooterSection.vue'
 import BackToTop from './components/BackToTop.vue'
 import AnimatedBackground from './components/effects/AnimatedBackground.vue'
@@ -16,27 +11,41 @@ import { useScrollReveal } from './composables/useScrollReveal.js'
 import { useTheme } from './composables/useTheme.js'
 
 const { theme } = useTheme()
+const route = useRoute()
+const { observe } = useScrollReveal()
 
-useScrollReveal()
+const revealPage = async () => {
+  await nextTick()
+  requestAnimationFrame(() => {
+    observe()
+  })
+}
+
+watch(
+  () => route.fullPath,
+  () => {
+    revealPage()
+  },
+  { immediate: true },
+)
 </script>
 
 <template>
-  <div class="relative min-h-screen text-brand-text-light transition-colors duration-theme dark:text-brand-text-dark">
+  <div class="site-shell relative min-h-screen text-[var(--color-text)] transition-colors duration-theme">
     <ScrollProgress />
     <AnimatedBackground class="mono-grayscale" />
     <CustomCursor />
 
     <Navbar v-model:theme="theme" />
 
-    <main class="mono-grayscale relative z-10 pt-28 sm:pt-32">
-      <div class="mx-auto flex max-w-6xl flex-col gap-6 px-4 pb-10 sm:gap-8 sm:px-6 lg:px-8">
-        <HeroSection />
-        <AboutSection />
-        <SkillsSection />
-        <ProjectsSection />
-        <ExperienceSection />
-        <AchievementsSection />
-        <ContactSection />
+    <main class="mono-grayscale relative z-10">
+      <RouterView v-slot="{ Component }">
+        <Transition name="page-fade" mode="out-in" @after-enter="observe">
+          <component :is="Component" :key="route.path" />
+        </Transition>
+      </RouterView>
+
+      <div class="mx-auto max-w-6xl px-4 pb-10 sm:px-6 lg:px-8">
         <FooterSection />
       </div>
     </main>
@@ -44,3 +53,20 @@ useScrollReveal()
     <BackToTop />
   </div>
 </template>
+
+<style scoped>
+.page-fade-enter-active,
+.page-fade-leave-active {
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.page-fade-enter-from {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.page-fade-leave-to {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+</style>

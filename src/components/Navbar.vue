@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { useRoute } from 'vue-router'
 import ThemeToggle from './ThemeToggle.vue'
 import MobileMenu from './MobileMenu.vue'
 
@@ -8,96 +8,63 @@ defineProps({
 })
 
 const emit = defineEmits(['update:theme'])
-
-const isScrolled = ref(false)
-const activeSection = ref('hero')
+const route = useRoute()
 
 const navLinks = [
-  { name: 'About', href: '#about', id: 'about' },
-  { name: 'Skills', href: '#skills', id: 'skills' },
-  { name: 'Projects', href: '#projects', id: 'projects' },
-  { name: 'Experience', href: '#experience', id: 'experience' },
-  { name: 'Contact', href: '#contact', id: 'contact' },
+  { name: 'Home', to: '/', match: 'home' },
+  { name: 'Projects', to: '/projects', match: 'projects' },
+  { name: 'Contact', to: '/contact', match: 'contact' },
 ]
 
-const scrollToSection = (e, href) => {
-  e.preventDefault()
-  const element = document.querySelector(href)
-  if (element) {
-    const headerOffset = 100
-    const elementPosition = element.getBoundingClientRect().top
-    const offsetPosition = elementPosition + window.pageYOffset - headerOffset
-    window.scrollTo({ top: offsetPosition, behavior: 'smooth' })
-  }
-}
-
-const handleScroll = () => {
-  isScrolled.value = window.scrollY > 40
-
-  const sections = ['contact', 'experience', 'projects', 'skills', 'about', 'hero']
-  for (const id of sections) {
-    const el = document.getElementById(id)
-    if (el && el.getBoundingClientRect().top <= 150) {
-      activeSection.value = id
-      break
-    }
-  }
-}
-
-onMounted(() => {
-  window.addEventListener('scroll', handleScroll, { passive: true })
-  handleScroll()
-})
-
-onUnmounted(() => {
-  window.removeEventListener('scroll', handleScroll)
-})
+const isActive = (match) => route.name === match
 </script>
 
 <template>
   <header class="fixed left-0 right-0 top-0 z-50 px-4 pt-4 sm:px-6">
     <div
-      class="glass-nav mono-grayscale mx-auto flex max-w-6xl items-center justify-between gap-4 rounded-2xl px-4 transition-all duration-500 ease-out sm:px-6"
-      :class="isScrolled ? 'py-2.5 shadow-glass-light dark:shadow-glass-dark' : 'py-3.5'"
+      class="glass-nav mono-grayscale mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6"
     >
-      <a href="#hero" class="group flex items-center gap-3" @click="(e) => scrollToSection(e, '#hero')">
+      <RouterLink to="/" class="group flex items-center gap-3" data-cursor="link">
         <div
-          class="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-primary-500 to-primary-300 text-sm font-bold text-white shadow-glow transition-transform duration-300 group-hover:scale-105"
+          class="flex h-9 w-9 items-center justify-center border border-[color:var(--color-accent)]/40 bg-[color:var(--color-primary)]/15 font-display text-sm font-semibold text-[color:var(--color-primary)] transition-colors group-hover:border-[color:var(--color-accent)] group-hover:text-[color:var(--color-accent)]"
         >
           M
         </div>
-        <div class="leading-tight transition-opacity duration-300" :class="isScrolled ? 'hidden sm:block' : 'block'">
-          <p class="text-sm font-semibold">
-            <span class="gradient-text">Min</span><span class="text-brand-gold">`s</span>
-          </p>
-          <p class="text-[11px] text-primary-700/70 dark:text-primary-300/70">Portfolio Website</p>
+        <div class="leading-tight">
+          <p class="font-display text-base font-semibold tracking-tight">Min Thant Ko</p>
+          <p class="text-[10px] uppercase tracking-[0.22em] text-[color:var(--color-muted)]">Portfolio</p>
         </div>
-      </a>
+      </RouterLink>
 
       <nav class="hidden items-center gap-1 sm:flex" aria-label="Main navigation">
-        <a
+        <RouterLink
           v-for="link in navLinks"
-          :key="link.href"
-          :href="link.href"
-          class="relative rounded-lg px-3.5 py-2 text-xs font-medium transition-all duration-300"
+          :key="link.to"
+          :to="link.to"
+          class="relative px-3.5 py-2 text-xs font-medium uppercase tracking-[0.16em] transition-colors duration-300"
           :class="
-            activeSection === link.id
-              ? 'text-primary-600 dark:text-primary-300'
-              : 'text-brand-text-light/70 hover:text-brand-text-light dark:text-brand-text-dark/70 dark:hover:text-brand-text-dark'
+            isActive(link.match)
+              ? 'text-[color:var(--color-accent)]'
+              : 'text-[color:var(--color-muted)] hover:text-[color:var(--color-text)]'
           "
-          @click="(e) => scrollToSection(e, link.href)"
+          data-cursor="link"
         >
           {{ link.name }}
           <span
-            v-if="activeSection === link.id"
-            class="absolute bottom-0 left-1/2 h-0.5 w-4 -translate-x-1/2 rounded-full bg-primary-500 shadow-glow"
+            v-if="isActive(link.match)"
+            class="absolute bottom-0 left-1/2 h-px w-5 -translate-x-1/2 bg-[color:var(--color-accent)]"
           ></span>
-        </a>
+        </RouterLink>
       </nav>
 
       <div class="flex items-center gap-3">
-        <ThemeToggle :model-value="theme" @update:model-value="emit('update:theme', $event)" />
-        <MobileMenu />
+        <div class="hidden sm:block">
+          <ThemeToggle :model-value="theme" @update:model-value="emit('update:theme', $event)" />
+        </div>
+        <MobileMenu
+          :theme="theme"
+          @update:theme="emit('update:theme', $event)"
+        />
       </div>
     </div>
   </header>

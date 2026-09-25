@@ -1,5 +1,5 @@
 <script setup>
-const props = defineProps({
+defineProps({
   socials: {
     type: Array,
     default: () => [
@@ -13,24 +13,25 @@ const props = defineProps({
 </script>
 
 <template>
-  <footer class="reveal mt-4 border-t border-primary-500/15 pt-8">
-    <div class="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
-      <p class="text-sm text-brand-text-light/50 dark:text-brand-text-dark/50">
-        © {{ new Date().getFullYear() }} Min Thant Ko. Full Stack Developer passionate about creating elegant and
-        functional digital experiences.
-      </p>
+  <footer class="reveal mt-8 border-t border-[color:var(--color-border)] pt-8">
+    <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+      <div>
+        <p class="font-display text-lg font-semibold">Min Thant Ko</p>
+        <p class="mt-2 max-w-md text-sm text-[color:var(--color-muted)]">
+          © {{ new Date().getFullYear() }} — Full Stack Developer crafting reliable digital systems.
+        </p>
+      </div>
 
-      <nav class="flex flex-wrap gap-2" aria-label="Social links">
+      <nav class="flex flex-wrap gap-x-5 gap-y-2" aria-label="Social links">
         <a
           v-for="item in socials"
           :key="item.label"
           :href="item.href"
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex min-h-[44px] items-center gap-2 rounded-full border border-primary-500/20 bg-primary-500/8 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-text-light/70 transition-all duration-300 hover:border-primary-500/40 hover:bg-primary-500/15 hover:text-primary-600 hover:shadow-glow dark:text-brand-text-dark/70 dark:hover:text-primary-300"
+          class="text-[11px] font-medium uppercase tracking-[0.18em] text-[color:var(--color-muted)] transition-colors hover:text-[color:var(--color-accent)]"
           data-cursor="link"
         >
-          <span class="h-1.5 w-1.5 rounded-full bg-primary-500 shadow-glow"></span>
           {{ item.label }}
         </a>
       </nav>

@@ -1,7 +1,6 @@
 <script setup>
 import SectionHeader from './ui/SectionHeader.vue'
 import CounterStat from './ui/CounterStat.vue'
-import TiltCard from './ui/TiltCard.vue'
 
 defineProps({
   stats: {
@@ -17,29 +16,39 @@ defineProps({
 </script>
 
 <template>
-  <section id="achievements" class="glass-card glow-border relative px-6 py-10 sm:px-10">
+  <section id="achievements" class="relative">
     <SectionHeader
       title="Highlights"
       subtitle="Key numbers that reflect my journey so far."
       badge="At a Glance"
     />
 
-    <div class="stagger-children grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-      <TiltCard v-for="stat in stats" :key="stat.label">
-        <article
-          class="reveal group relative overflow-hidden rounded-2xl border border-primary-500/20 bg-white/40 p-6 text-center transition-all duration-300 hover:border-primary-500/40 hover:shadow-glow dark:bg-brand-surface/40"
+    <div class="stagger-children grid gap-px border border-[color:var(--color-border)] bg-[color:var(--color-border)] sm:grid-cols-2 lg:grid-cols-4">
+      <article
+        v-for="stat in stats"
+        :key="stat.label"
+        class="stat-panel reveal group relative p-6 text-center transition-colors duration-300 sm:p-7"
+      >
+        <div
+          class="mx-auto mb-4 flex h-11 w-11 items-center justify-center border border-[color:var(--color-border)] text-[color:var(--color-primary)] transition-colors group-hover:border-[color:var(--color-accent)] group-hover:text-[color:var(--color-accent)]"
         >
-          <div
-            class="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary-500/15 text-primary-600 transition-all duration-300 group-hover:bg-primary-500/25 group-hover:shadow-glow dark:text-primary-300"
-          >
-            <i :class="['fas', stat.icon, 'text-lg']"></i>
-          </div>
-          <p class="text-3xl font-bold text-brand-text-light dark:text-brand-text-dark">
-            <CounterStat :end="stat.value" :suffix="stat.suffix || ''" />
-          </p>
-          <p class="mt-2 text-sm text-brand-text-light/60 dark:text-brand-text-dark/60">{{ stat.label }}</p>
-        </article>
-      </TiltCard>
+          <i :class="['fas', stat.icon, 'text-base']"></i>
+        </div>
+        <p class="font-display text-3xl font-semibold tracking-tight text-[color:var(--color-text)] sm:text-4xl">
+          <CounterStat :end="stat.value" :suffix="stat.suffix || ''" />
+        </p>
+        <p class="mt-2 text-sm text-[color:var(--color-muted)]">{{ stat.label }}</p>
+      </article>
     </div>
   </section>
 </template>
+
+<style scoped>
+.stat-panel {
+  background: var(--color-card);
+}
+
+.stat-panel:hover {
+  background: color-mix(in srgb, var(--color-card) 85%, var(--color-primary) 10%);
+}
+</style>

@@ -1,8 +1,6 @@
 <script setup>
-import SectionHeader from './ui/SectionHeader.vue'
-import TiltCard from './ui/TiltCard.vue'
-
 defineProps({
+  hideHeader: { type: Boolean, default: false },
   email: { type: String, default: 'mr.minthantko@gmail.com' },
   phone: { type: String, default: '+95 9 401841741' },
   socials: {
@@ -28,57 +26,46 @@ const getIcon = (iconName) => {
 </script>
 
 <template>
-  <section id="contact" class="glass-card glow-border relative px-6 py-10 sm:px-10">
-    <SectionHeader
-      title="Contact"
-      subtitle="Let's talk about your next project or collaboration."
-    />
-
-    <div class="grid gap-8 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]">
-      <div class="space-y-6">
+  <section id="contact" class="relative">
+    <div class="grid gap-10 border border-[color:var(--color-border)] lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
+      <div class="space-y-8 p-6 sm:p-8 lg:p-10">
         <div class="reveal">
-          <h3 class="mb-3 text-base font-semibold text-brand-text-light dark:text-brand-text-dark">Get in Touch</h3>
-          <p class="body-text mb-4 text-brand-text-light/75 dark:text-brand-text-dark/75">
+          <h3 class="mb-3 font-display text-xl font-semibold">Get in Touch</h3>
+          <p class="body-text text-[color:var(--color-muted)]">
             Reach out directly at
             <a
               :href="`mailto:${email}`"
-              class="font-medium text-primary-600 underline-offset-2 transition-colors hover:text-primary-500 hover:underline dark:text-primary-300"
+              class="font-medium text-[color:var(--color-accent)] underline-offset-4 transition-colors hover:underline"
               data-cursor="link"
             >{{ email }}</a>
           </p>
-          <!-- <p class="text-brand-text-light/75 dark:text-brand-text-dark/75">
-            Phone:
-            <span class="font-medium">{{ phone }}</span>
-          </p> -->
         </div>
 
         <div class="reveal">
-          <h3 class="mb-4 text-base font-semibold text-brand-text-light dark:text-brand-text-dark">Connect with Me</h3>
-          <div class="grid gap-3 sm:grid-cols-2">
+          <h3 class="mb-4 font-display text-xl font-semibold">Connect</h3>
+          <div class="grid gap-px border border-[color:var(--color-border)] bg-[color:var(--color-border)] sm:grid-cols-2">
             <a
               v-for="social in socials"
               :key="social.label"
               :href="social.href"
               target="_blank"
               rel="noopener noreferrer"
-              class="group flex min-h-[44px] items-center gap-3 rounded-xl border border-primary-500/20 bg-white/40 px-5 py-3.5 transition-all duration-300 hover:border-primary-500/40 hover:bg-primary-500/10 hover:shadow-glow dark:bg-brand-surface/40"
+              class="social-link group flex min-h-[52px] items-center gap-3 px-5 py-3.5 transition-colors"
               data-cursor="link"
             >
               <svg
-                class="h-5 w-5 text-primary-600 transition-colors group-hover:text-primary-500 dark:text-primary-300"
+                class="h-5 w-5 text-[color:var(--color-primary)] transition-colors group-hover:text-[color:var(--color-accent)]"
                 fill="currentColor"
                 viewBox="0 0 24 24"
               >
                 <path :d="getIcon(social.icon)" />
               </svg>
-              <span class="text-sm font-medium text-brand-text-light group-hover:text-primary-600 dark:text-brand-text-dark dark:group-hover:text-primary-300">
-                {{ social.label }}
-              </span>
+              <span class="text-sm font-medium">{{ social.label }}</span>
             </a>
           </div>
         </div>
 
-        <div class="reveal pt-2">
+        <div class="reveal">
           <a
             href="/MinThantKo_CV.pdf"
             download="MinThantKo_CV.pdf"
@@ -86,42 +73,59 @@ const getIcon = (iconName) => {
             class="btn-primary"
             data-cursor="button"
           >
-            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-            </svg>
-            Download My Resume
+            <i class="fas fa-file-arrow-down"></i>
+            Download Resume
           </a>
         </div>
       </div>
 
-      <TiltCard>
-        <div
-          class="reveal rounded-2xl border border-primary-500/20 bg-white/40 p-8 backdrop-blur-xl transition-all duration-300 hover:border-primary-500/30 hover:shadow-glow dark:bg-brand-surface/40"
-        >
-          <h3 class="mb-4 text-lg font-semibold text-brand-text-light dark:text-brand-text-dark">Let's Work Together</h3>
-          <p class="mb-6 text-sm leading-relaxed text-brand-text-light/70 dark:text-brand-text-dark/70">
-            I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions. Feel free to reach out through any of the social links or email me directly.
+      <div class="reveal contact-aside relative flex flex-col justify-end overflow-hidden p-6 sm:p-8 lg:p-10">
+        <div class="contact-fog pointer-events-none absolute inset-0" aria-hidden="true"></div>
+        <div class="relative z-10 space-y-6">
+          <p class="text-[11px] font-medium uppercase tracking-[0.28em] text-[color:var(--color-accent)]">
+            Signal open
           </p>
-          <div class="space-y-3">
-            <div class="group flex items-center gap-3 rounded-xl border border-primary-500/15 bg-primary-500/5 p-4 transition-all duration-300 hover:border-primary-500/30 hover:bg-primary-500/10">
-              <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-primary-500/15 text-primary-600 dark:text-primary-300">
-                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-              </div>
-              <span class="text-sm text-brand-text-light/80 dark:text-brand-text-dark/80">{{ email }}</span>
-            </div>
-            <div class="group flex items-center gap-3 rounded-xl border border-primary-500/15 bg-primary-500/5 p-4 transition-all duration-300 hover:border-primary-500/30 hover:bg-primary-500/10">
-              <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-primary-500/15 text-primary-600 dark:text-primary-300">
-                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                </svg>
-              </div>
-              <span class="text-sm text-brand-text-light/80 dark:text-brand-text-dark/80">{{ phone }}</span>
-            </div>
+          <h3 class="font-display text-3xl font-semibold leading-tight sm:text-4xl">
+            Let’s build something that lasts.
+          </h3>
+          <p class="max-w-sm text-sm leading-relaxed text-[color:var(--color-muted)]">
+            Open to new projects, creative ideas, and roles where careful engineering meets clear craft.
+          </p>
+          <div class="space-y-3 border-t border-[color:var(--color-border)] pt-5">
+            <p class="text-sm text-[color:var(--color-text)]/85">{{ email }}</p>
+            <p class="text-sm text-[color:var(--color-muted)]">{{ phone }}</p>
           </div>
         </div>
-      </TiltCard>
+      </div>
     </div>
   </section>
 </template>
+
+<style scoped>
+.contact-aside {
+  background: color-mix(in srgb, var(--color-card) 70%, var(--color-primary) 8%);
+  border-top: 1px solid var(--color-border);
+}
+
+@media (min-width: 1024px) {
+  .contact-aside {
+    border-top: none;
+    border-left: 1px solid var(--color-border);
+  }
+}
+
+.contact-fog {
+  background:
+    radial-gradient(ellipse 70% 50% at 80% 20%, rgba(154, 107, 63, 0.16), transparent 55%),
+    radial-gradient(ellipse 60% 60% at 10% 90%, rgba(47, 95, 90, 0.18), transparent 50%);
+  animation: fog-drift 20s ease-in-out infinite alternate;
+}
+
+.social-link {
+  background: var(--color-card);
+}
+
+.social-link:hover {
+  background: color-mix(in srgb, var(--color-card) 80%, var(--color-primary) 12%);
+}
+</style>

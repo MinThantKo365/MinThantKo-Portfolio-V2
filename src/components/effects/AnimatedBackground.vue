@@ -11,16 +11,16 @@ let particles = []
 let mouse = { x: -1000, y: -1000 }
 let isMobile = false
 
-const PARTICLE_COUNT_DESKTOP = 60
-const PARTICLE_COUNT_MOBILE = 20
+const PARTICLE_COUNT_DESKTOP = 48
+const PARTICLE_COUNT_MOBILE = 16
 
 class Particle {
   constructor(w, h) {
     this.x = Math.random() * w
     this.y = Math.random() * h
-    this.vx = (Math.random() - 0.5) * 0.4
-    this.vy = (Math.random() - 0.5) * 0.4
-    this.radius = Math.random() * 1.5 + 0.5
+    this.vx = (Math.random() - 0.5) * 0.25
+    this.vy = (Math.random() - 0.5) * 0.25
+    this.radius = Math.random() * 1.2 + 0.3
   }
 
   update(w, h) {
@@ -33,15 +33,15 @@ class Particle {
     const dy = mouse.y - this.y
     const dist = Math.sqrt(dx * dx + dy * dy)
     if (dist < 120 && !isMobile) {
-      this.x -= dx * 0.008
-      this.y -= dy * 0.008
+      this.x -= dx * 0.006
+      this.y -= dy * 0.006
     }
   }
 
   draw(ctx) {
     ctx.beginPath()
     ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2)
-    ctx.fillStyle = 'rgba(61, 122, 82, 0.45)'
+    ctx.fillStyle = 'rgba(107, 155, 148, 0.4)'
     ctx.fill()
   }
 }
@@ -52,18 +52,18 @@ const initParticles = (canvas) => {
 }
 
 const drawConnections = (ctx) => {
-  const maxDist = isMobile ? 80 : 120
+  const maxDist = isMobile ? 70 : 110
   for (let i = 0; i < particles.length; i++) {
     for (let j = i + 1; j < particles.length; j++) {
       const dx = particles[i].x - particles[j].x
       const dy = particles[i].y - particles[j].y
       const dist = Math.sqrt(dx * dx + dy * dy)
       if (dist < maxDist) {
-        const alpha = (1 - dist / maxDist) * 0.15
+        const alpha = (1 - dist / maxDist) * 0.12
         ctx.beginPath()
         ctx.moveTo(particles[i].x, particles[i].y)
         ctx.lineTo(particles[j].x, particles[j].y)
-        ctx.strokeStyle = `rgba(61, 122, 82, ${alpha})`
+        ctx.strokeStyle = `rgba(154, 107, 63, ${alpha})`
         ctx.lineWidth = 0.5
         ctx.stroke()
       }
@@ -119,36 +119,32 @@ onUnmounted(() => {
 
 <template>
   <div class="mono-grayscale pointer-events-none fixed inset-0 z-0 overflow-hidden" aria-hidden="true">
-    <!-- Aurora layers -->
-    <div class="absolute inset-0 animate-aurora-shift opacity-60 dark:opacity-80">
+    <div class="absolute inset-0 animate-fog-drift opacity-70 dark:opacity-90">
       <div
-        class="absolute -left-1/4 -top-1/4 h-[60vh] w-[60vw] rounded-full bg-primary-500/20 blur-[100px] animate-blob-1"
+        class="absolute -left-1/4 -top-1/4 h-[55vh] w-[55vw] rounded-full bg-primary-500/15 blur-[110px] animate-blob-1"
       ></div>
       <div
-        class="absolute -right-1/4 top-1/4 h-[50vh] w-[50vw] rounded-full bg-primary-300/15 blur-[120px] animate-blob-2"
+        class="absolute -right-1/4 top-1/4 h-[45vh] w-[45vw] rounded-full bg-brand-accent/10 blur-[120px] animate-blob-2"
       ></div>
       <div
-        class="absolute bottom-0 left-1/3 h-[40vh] w-[40vw] rounded-full bg-primary-900/10 blur-[80px] animate-blob-3 dark:bg-primary-500/10"
+        class="absolute bottom-0 left-1/3 h-[38vh] w-[38vw] rounded-full bg-primary-300/10 blur-[90px] animate-blob-3"
       ></div>
     </div>
 
-    <!-- Gradient mesh overlay -->
     <div
-      class="absolute inset-0 opacity-30 dark:opacity-20"
-      style="background: radial-gradient(ellipse at 20% 50%, rgba(61,122,82,0.14) 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, rgba(196,98,45,0.1) 0%, transparent 50%), radial-gradient(ellipse at 60% 80%, rgba(232,185,35,0.08) 0%, transparent 50%)"
+      class="absolute inset-0 opacity-40 dark:opacity-25"
+      style="background: radial-gradient(ellipse at 18% 55%, rgba(47,95,90,0.14) 0%, transparent 50%), radial-gradient(ellipse at 82% 18%, rgba(154,107,63,0.1) 0%, transparent 48%)"
     ></div>
 
-    <!-- Particle canvas -->
     <canvas
       v-if="!prefersReduced"
       ref="canvasRef"
-      class="absolute inset-0 h-full w-full opacity-40 dark:opacity-60"
+      class="absolute inset-0 h-full w-full opacity-35 dark:opacity-55"
     ></canvas>
 
-    <!-- Grid overlay -->
     <div
-      class="absolute inset-0 opacity-[0.03] dark:opacity-[0.05]"
-      style="background-image: linear-gradient(rgba(61,122,82,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(61,122,82,0.3) 1px, transparent 1px); background-size: 60px 60px"
+      class="absolute inset-0 opacity-[0.035] dark:opacity-[0.05]"
+      style="background-image: linear-gradient(rgba(107,155,148,0.35) 1px, transparent 1px), linear-gradient(90deg, rgba(107,155,148,0.35) 1px, transparent 1px); background-size: 72px 72px"
     ></div>
   </div>
 </template>

@@ -17,7 +17,7 @@ defineProps({
     default: () => [
       {
         category: 'Programming Languages',
-        items: ['PHP', 'Python', 'JavaScript', 'C# (basic)'],
+        items: ['PHP', 'Python', 'JavaScript', 'C# (basic)', 'Kotlin', 'React Native'],
         level: 85,
         icon: 'fa-code',
       },
@@ -28,16 +28,28 @@ defineProps({
         icon: 'fa-globe',
       },
       {
-        category: 'Databases & Tools',
-        items: ['MySQL', 'VS Code', 'Cursor', 'Git / GitHub', 'Cisco Packet Tracer (basic)', 'StarUML'],
-        level: 80,
+        category: 'Databases Management',
+        items: ['MySQL', 'PostgreSQL'],
+        level: 85,
         icon: 'fa-database',
       },
       {
-        category: 'Operating Systems',
-        items: ['Windows', 'Linux (basic)'],
-        level: 75,
-        icon: 'fa-server',
+        category: 'Cloud & AWS',
+        items: ['AWS Cloud Computing', 'EC2', 'S3', 'IAM', 'VPC', 'Cloud fundamentals'],
+        level: 70,
+        icon: 'fa-cloud',
+      },
+      {
+        category: 'Tools',
+        items: ['VS Code', 'Cursor', 'Git / GitHub', 'Cisco Packet Tracer', 'StarUML', 'Axure RP', 'Figma'],
+        level: 80,
+        icon: 'fa-tools',
+      },
+      {
+        category: 'AI Model Training',
+        items: ['Python', 'PyTorch', 'Transformers', 'Tensorflow', 'FastAPI'],
+        level: 70,
+        icon: 'fa-ai',
       },
     ],
   },
@@ -45,11 +57,11 @@ defineProps({
 </script>
 
 <template>
-  <section id="skills" class="skills-section glass-card glow-border relative overflow-hidden px-4 py-8 sm:px-8 sm:py-10 lg:px-10">
+  <section id="skills" class="skills-section relative">
     <SectionHeader
-      title="Skills & Tech Stack"
-      subtitle="A snapshot of the tools and technologies I work with daily."
-      badge="Always learning & iterating"
+      title="Skills"
+      subtitle="Tools and crafts I keep sharp in day-to-day work."
+      badge="Arsenal"
     />
 
     <div class="skills-grid stagger-children">
@@ -58,31 +70,29 @@ defineProps({
         :key="group.category"
         class="skills-panel reveal group"
       >
-        <div class="skills-panel-body">
-          <header class="skills-panel-header">
-            <div class="skills-panel-title">
-              <div class="skills-panel-icon">
-                <i :class="['fas', group.icon || 'fa-layer-group']"></i>
-              </div>
-              <h3 class="skills-panel-name">{{ group.category }}</h3>
+        <header class="skills-panel-header">
+          <div class="skills-panel-title">
+            <div class="skills-panel-icon">
+              <i :class="['fas', group.icon || 'fa-layer-group']"></i>
             </div>
-            <span class="skills-level-badge">
-              <CounterStat :end="group.level" suffix="%" :duration="counterDuration" />
-            </span>
-          </header>
-
-          <div class="skills-meter" role="progressbar" :aria-valuenow="group.level" aria-valuemin="0" aria-valuemax="100">
-            <div class="skills-meter-track">
-              <div class="skills-meter-fill" :style="{ '--target': `${group.level}%` }"></div>
-            </div>
+            <h3 class="skills-panel-name">{{ group.category }}</h3>
           </div>
+          <span class="skills-level-badge">
+            <CounterStat :end="group.level" suffix="%" :duration="counterDuration" />
+          </span>
+        </header>
 
-          <ul class="skills-tags">
-            <li v-for="item in group.items" :key="item" class="skill-chip">
-              {{ item }}
-            </li>
-          </ul>
+        <div class="skills-meter" role="progressbar" :aria-valuenow="group.level" aria-valuemin="0" aria-valuemax="100">
+          <div class="skills-meter-track">
+            <div class="skills-meter-fill" :style="{ '--target': `${group.level}%` }"></div>
+          </div>
         </div>
+
+        <ul class="skills-tags">
+          <li v-for="item in group.items" :key="item" class="skill-chip">
+            {{ item }}
+          </li>
+        </ul>
       </article>
     </div>
   </section>
@@ -92,58 +102,32 @@ defineProps({
 .skills-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: 1rem;
+  gap: 1px;
+  border: 1px solid var(--color-border);
+  background: var(--color-border);
 }
 
 @media (min-width: 640px) {
   .skills-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1.25rem;
   }
 }
 
 .skills-panel {
-  position: relative;
-  display: flex;
   min-width: 0;
-  overflow: hidden;
-  border-radius: 1.25rem;
-  border: 1px solid rgba(196, 98, 45, 0.22);
-  background: rgba(255, 252, 247, 0.72);
-  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
-}
-
-.dark .skills-panel {
-  border-color: rgba(232, 185, 35, 0.2);
-  background: rgba(30, 43, 36, 0.55);
-}
-
-.theme-monochrome .skills-panel {
-  border-color: rgba(212, 212, 212, 0.2);
-  background: rgba(23, 23, 23, 0.72);
-}
-
-.skills-panel:hover {
-  border-color: rgba(196, 98, 45, 0.45);
-  box-shadow: 0 12px 32px rgba(26, 36, 32, 0.08);
-  transform: translateY(-2px);
-}
-
-.dark .skills-panel:hover {
-  border-color: rgba(232, 185, 35, 0.38);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28);
-}
-
-.skills-panel-body {
-  min-width: 0;
-  flex: 1;
-  padding: 1rem;
+  background: var(--color-card);
+  padding: 1.25rem;
+  transition: background 0.3s ease;
 }
 
 @media (min-width: 640px) {
-  .skills-panel-body {
-    padding: 1.25rem;
+  .skills-panel {
+    padding: 1.5rem;
   }
+}
+
+.skills-panel:hover {
+  background: color-mix(in srgb, var(--color-card) 80%, var(--color-primary) 8%);
 }
 
 .skills-panel-header {
@@ -151,13 +135,13 @@ defineProps({
   align-items: flex-start;
   justify-content: space-between;
   gap: 0.75rem;
-  margin-bottom: 0.85rem;
+  margin-bottom: 1rem;
 }
 
 .skills-panel-title {
   display: flex;
   align-items: center;
-  gap: 0.65rem;
+  gap: 0.7rem;
   min-width: 0;
 }
 
@@ -168,84 +152,48 @@ defineProps({
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  border-radius: 0.75rem;
-  background: rgba(61, 122, 82, 0.14);
-  color: #2D5A3D;
-  font-size: 0.95rem;
-}
-
-.dark .skills-panel-icon {
-  background: rgba(107, 175, 132, 0.16);
-  color: #A8D1B8;
-}
-
-.theme-monochrome .skills-panel-icon {
-  background: rgba(163, 163, 163, 0.18);
-  color: #E5E5E5;
+  border: 1px solid var(--color-border);
+  color: var(--color-primary);
+  font-size: 0.9rem;
 }
 
 .skills-panel-name {
-  font-size: 0.875rem;
+  font-family: Fraunces, Georgia, serif;
+  font-size: 1rem;
   font-weight: 600;
-  line-height: 1.35;
-  color: #1A2420;
-  word-break: break-word;
-}
-
-.dark .skills-panel-name {
-  color: #EDF5F0;
+  line-height: 1.3;
+  color: var(--color-text);
 }
 
 .skills-level-badge {
   flex-shrink: 0;
-  border-radius: 9999px;
-  border: 1px solid rgba(196, 98, 45, 0.35);
-  background: rgba(196, 98, 45, 0.1);
+  border: 1px solid rgba(154, 107, 63, 0.4);
   padding: 0.2rem 0.55rem;
   font-size: 0.68rem;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.04em;
-  color: #C4622D;
+  color: var(--color-accent);
   font-variant-numeric: tabular-nums;
 }
 
 .dark .skills-level-badge {
-  border-color: rgba(232, 185, 35, 0.35);
-  background: rgba(232, 185, 35, 0.12);
-  color: #E8B923;
-}
-
-.theme-monochrome .skills-level-badge {
-  border-color: rgba(212, 212, 212, 0.35);
-  background: rgba(163, 163, 163, 0.12);
-  color: #F5F5F5;
+  border-color: rgba(196, 165, 116, 0.35);
 }
 
 .skills-meter {
-  margin-bottom: 0.9rem;
+  margin-bottom: 1rem;
 }
 
 .skills-meter-track {
-  height: 0.4rem;
+  height: 2px;
   overflow: hidden;
-  border-radius: 9999px;
-  background: rgba(61, 122, 82, 0.12);
-}
-
-.dark .skills-meter-track {
-  background: rgba(168, 209, 184, 0.14);
-}
-
-.theme-monochrome .skills-meter-track {
-  background: rgba(163, 163, 163, 0.2);
+  background: color-mix(in srgb, var(--color-primary) 18%, transparent);
 }
 
 .skills-meter-fill {
   width: 0;
   height: 100%;
-  border-radius: inherit;
-  background: linear-gradient(90deg, #3D7A52, #C4622D);
-  box-shadow: 0 0 10px rgba(61, 122, 82, 0.25);
+  background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
   transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -253,39 +201,13 @@ defineProps({
   width: var(--target);
 }
 
-.dark .skills-meter-fill {
-  background: linear-gradient(90deg, #6BAF84, #E8B923);
-  box-shadow: 0 0 10px rgba(107, 175, 132, 0.22);
-}
-
-.theme-monochrome .skills-meter-fill {
-  background: linear-gradient(90deg, #A3A3A3, #F5F5F5);
-  box-shadow: none;
-}
-
 .skills-tags {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 0.45rem;
   list-style: none;
   margin: 0;
   padding: 0;
-}
-
-@media (min-width: 480px) {
-  .skills-tags {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-
-.skills-tags .skill-chip {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 2rem;
-  text-align: center;
-  line-height: 1.2;
-  word-break: break-word;
 }
 
 @media (prefers-reduced-motion: reduce) {

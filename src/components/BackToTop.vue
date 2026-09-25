@@ -25,7 +25,7 @@ onUnmounted(() => {
     <button
       v-if="showButton"
       @click="scrollToTop"
-      class="mono-grayscale fixed bottom-8 right-8 z-50 flex h-12 w-12 items-center justify-center rounded-full border border-primary-500/30 bg-primary-500 text-white shadow-glow transition-all duration-300 hover:scale-110 hover:bg-primary-400 hover:shadow-glow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-400 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-brand-bg-dark"
+      class="mono-grayscale fixed bottom-8 right-8 z-50 flex h-12 w-12 items-center justify-center border border-[color:var(--color-border)] bg-[color:var(--color-primary)] text-[#f4f7f6] shadow-soft-lg transition-all duration-300 hover:-translate-y-0.5 hover:bg-[color:var(--color-accent)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-accent)]"
       aria-label="Back to top"
       data-cursor="button"
     >
