@@ -1,5 +1,7 @@
 <script setup>
-defineProps({
+import { computed } from 'vue'
+
+const props = defineProps({
   hideHeader: { type: Boolean, default: false },
   email: { type: String, default: 'mr.minthantko@gmail.com' },
   phone: { type: String, default: '+95 9 401841741' },
@@ -13,6 +15,8 @@ defineProps({
     ],
   },
 })
+
+const phoneHref = computed(() => `tel:${props.phone.replace(/[\s()-]/g, '')}`)
 
 const getIcon = (iconName) => {
   const icons = {
@@ -92,8 +96,16 @@ const getIcon = (iconName) => {
             Open to new projects, creative ideas, and roles where careful engineering meets clear craft.
           </p>
           <div class="space-y-3 border-t border-[color:var(--color-border)] pt-5">
-            <p class="text-sm text-[color:var(--color-text)]/85">{{ email }}</p>
-            <p class="text-sm text-[color:var(--color-muted)]">{{ phone }}</p>
+            <a
+              :href="`mailto:${email}`"
+              class="block text-sm text-[color:var(--color-text)]/85 transition-colors hover:text-[color:var(--color-accent)]"
+              data-cursor="link"
+            >{{ email }}</a>
+            <a
+              :href="phoneHref"
+              class="block text-sm text-[color:var(--color-muted)] transition-colors hover:text-[color:var(--color-accent)]"
+              data-cursor="link"
+            >{{ phone }}</a>
           </div>
         </div>
       </div>

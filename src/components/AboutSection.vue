@@ -11,7 +11,6 @@ defineProps({
     type: Array,
     default: () => [
       'B.Sc. (Hons) in Computing from the University of Greenwich (UK) via KMD College.',
-      'AWS Cloud Computing class — trained in core AWS services and cloud fundamentals.',
       'NCC Level 5 Diploma in Computing from M.S.T College, with experience in system analysis, web development, and database design.',
       'NCC Level 4 Diploma in Computing from Twinkle College, covering programming, computer systems, and networking fundamentals.',
     ],

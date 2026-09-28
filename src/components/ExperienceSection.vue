@@ -68,9 +68,7 @@ onUnmounted(() => {
             class="reveal group relative border border-[color:var(--color-border)] bg-[color:var(--color-card)] p-5 transition-colors duration-300 hover:border-[color:var(--color-accent)]/50 sm:p-6"
             :style="{ transitionDelay: `${index * 100}ms` }"
           >
-            <span
-              class="absolute -left-[1.7rem] top-7 h-2.5 w-2.5 border border-[color:var(--color-bg)] bg-[color:var(--color-accent)] sm:-left-[2.2rem]"
-            ></span>
+            
 
             <header class="mb-3 flex flex-wrap items-baseline justify-between gap-3">
               <div>

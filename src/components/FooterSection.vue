@@ -18,7 +18,7 @@ defineProps({
       <div>
         <p class="font-display text-lg font-semibold">Min Thant Ko</p>
         <p class="mt-2 max-w-md text-sm text-[color:var(--color-muted)]">
-          © {{ new Date().getFullYear() }} — Full Stack Developer crafting reliable digital systems.
+          © {{ new Date().getFullYear() }} — Min Thant Ko`s Portfolio crafting reliable digital systems.
         </p>
       </div>
 

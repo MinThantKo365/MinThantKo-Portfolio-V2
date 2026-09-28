@@ -3,11 +3,11 @@ import MagneticButton from './ui/MagneticButton.vue'
 
 defineProps({
   name: { type: String, default: 'Min Thant Ko' },
-  title: { type: String, default: 'Full Stack Developer · AI Developer' },
+  title: { type: String, default: 'Full Stack Developer' },
   subtitle: {
     type: String,
     default:
-      'Building web systems with Laravel and Vue, with hands-on AWS cloud training toward systems and cloud engineering.',
+      'I’m passionate about backend development, building robust and scalable systems with PHP and Laravel, while using Vue.js to create seamless frontend experiences. I’m also expanding my expertise in AI, AWS Cloud, and database architecture.',
   },
 })
 
