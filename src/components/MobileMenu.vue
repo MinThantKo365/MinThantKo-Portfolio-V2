@@ -23,6 +23,7 @@ const closeMenu = () => {
 const navLinks = [
   { name: 'Home', to: '/' },
   { name: 'Projects', to: '/projects' },
+  { name: 'Journey', to: '/journey' },
   { name: 'Contact', to: '/contact' },
 ]
 </script>

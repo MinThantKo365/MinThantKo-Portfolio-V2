@@ -7,7 +7,7 @@ defineProps({
   subtitle: {
     type: String,
     default:
-      'I’m passionate about backend development, building robust and scalable systems with PHP and Laravel, while using Vue.js to create seamless frontend experiences. I’m also expanding my expertise in AI, AWS Cloud, and database architecture.',
+      'I’m passionate about backend development, building robust and scalable systems with PHP and Laravel, while using Vue.js to create seamless frontend experiences. I’m also expanding into AI, AWS Cloud, and database architecture — with a longer-term path toward DevOps or Cloud Engineering.',
   },
 })
 

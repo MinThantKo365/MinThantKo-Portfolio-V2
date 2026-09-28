@@ -15,6 +15,12 @@ const routes = [
     meta: { title: 'Projects — Min Thant Ko' },
   },
   {
+    path: '/journey',
+    name: 'journey',
+    component: () => import('../pages/JourneyPage.vue'),
+    meta: { title: 'Journey — Min Thant Ko' },
+  },
+  {
     path: '/contact',
     name: 'contact',
     component: () => import('../pages/ContactPage.vue'),

@@ -5,7 +5,7 @@ defineProps({
   bio: {
     type: String,
     default:
-      'I am a Full Stack Developer with hands-on experience in web application development, system design, and collaborative team environments. I have completed AWS Cloud Computing classes and can work with core AWS services as I move toward a Cloud Engineer and System Engineer career path. I hold a B.Sc. (Hons) in Computing from the University of Greenwich, along with NCC Level 4 and Level 5 Diplomas in Computing.',
+      'I am a Full Stack Developer with hands-on experience in web application development, system design, and collaborative team environments. I have completed AWS Cloud Computing classes and can work with core AWS services as I grow as a backend developer and move toward a DevOps or Cloud Engineer career path. I hold a B.Sc. (Hons) in Computing from the University of Greenwich, along with NCC Level 4 and Level 5 Diplomas in Computing.',
   },
   highlights: {
     type: Array,

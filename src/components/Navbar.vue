@@ -13,6 +13,7 @@ const route = useRoute()
 const navLinks = [
   { name: 'Home', to: '/', match: 'home' },
   { name: 'Projects', to: '/projects', match: 'projects' },
+  { name: 'Journey', to: '/journey', match: 'journey' },
   { name: 'Contact', to: '/contact', match: 'contact' },
 ]
 

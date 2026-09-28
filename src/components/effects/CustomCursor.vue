@@ -33,11 +33,19 @@ onUnmounted(() => {
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: rgba(61, 122, 82, 0.35);
+  background: rgba(47, 95, 90, 0.35);
   transform: translate(-50%, -50%) scale(0);
   animation: cursor-ripple-anim 0.6s ease-out forwards;
   pointer-events: none;
   z-index: 9998;
+}
+
+.dark .cursor-ripple {
+  background: rgba(107, 155, 148, 0.35);
+}
+
+.theme-monochrome .cursor-ripple {
+  background: rgba(212, 212, 212, 0.4);
 }
 
 @keyframes cursor-ripple-anim {
