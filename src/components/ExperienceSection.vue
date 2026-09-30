@@ -7,7 +7,7 @@ defineProps({
     type: Array,
     default: () => [
       {
-        role: 'Junior Web Developer',
+        role: 'Web Developer',
         company: 'Global Technology Company · Full-time',
         period: 'Jul 2025 – Present · Yangon, Myanmar · On-site',
         summary:
