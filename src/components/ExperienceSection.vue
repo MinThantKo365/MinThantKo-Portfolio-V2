@@ -64,6 +64,32 @@ defineProps({
             ],
           },
           {
+            title: 'Tour & Travel Web Application',
+            frameworks: ['Laravel', 'MySQL', 'Stripe', 'Bootstrap 5'],
+            highlights: [
+              'Developed a Laravel-based tour and travel web application with MySQL, Stripe payment integration, and Bootstrap 5 for responsive design.',
+              'Implemented user authentication and authorization features for secure access to the application.',
+              'Integrated Stripe payment gateway for seamless booking and payment processing.',
+              'Designed and implemented a responsive user interface using Bootstrap 5, ensuring a consistent experience across devices.',
+              'Built backend functionality for managing tours, bookings, and user accounts, including CRUD operations and data validation.',
+              'Developed a booking management system with email notifications and confirmation workflows for users and administrators.',
+              'Implemented search and filtering capabilities for tours based on location, price, and availability.',
+              'Created an admin dashboard for managing tours, travel information, bookings, and user accounts with role-based access control.',
+            ],
+          },
+          {
+            title: 'Moonvale University Backend System',
+            frameworks: ['Laravel', 'MySQL'],
+            highlights: [
+              'Developed a Laravel-based backend system with Restful API for Moonvale University, managing student records, course registrations, library systems, and academic data.',
+              'Implemented user authentication and authorization features for secure access to the application.',
+              'Designed and implemented database schemas and relationships to support student, course, and academic data management.',
+              'Built backend functionality for managing student records, course registrations, library systems, and academic data, including CRUD operations and data validation.',
+              'Created Restful API endpoints for integration with frontend applications and third-party services.',
+              'Developed 75% of the backend system using Laravel and independently completed 100% of the database design. Collaborated with a team of three developers who contributed to the remaining 25% of backend development, ensuring effective teamwork and successful project delivery.',
+            ],
+          },
+          {
             title: 'Appointment Scheduler',
             frameworks: ['Laravel 12', 'PHP', 'Blade', 'Bootstrap 5'],
             highlights: [
