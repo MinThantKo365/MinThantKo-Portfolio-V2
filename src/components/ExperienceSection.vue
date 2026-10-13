@@ -2,6 +2,21 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import SectionHeader from './ui/SectionHeader.vue'
 
+const roles = [
+  {
+    role: 'Full Stack Developer',
+    company: 'Global Technology Company · Full-time',
+    location: 'Yangon, Myanmar · On-site',
+    period: 'Jul 2025 — Present',
+  },
+  {
+    role: 'AI Developer',
+    company: 'My Day Thu Kywal',
+    location: 'Internship · On-site',
+    period: 'Apr 2025 — Jul 2025',
+  },
+]
+
 defineProps({
   hideHeader: { type: Boolean, default: false },
   experiences: {
@@ -202,10 +217,35 @@ onUnmounted(() => {
   <section id="experience" class="relative space-y-10 sm:space-y-12">
     <SectionHeader
       v-if="!hideHeader"
-      title="Work Experience"
+      title="Working Experience"
       subtitle="Roles, systems, and the work behind them."
       badge="Career"
     />
+
+    <div class="space-y-6">
+      <h2 v-if="hideHeader" class="section-title">Working Experience</h2>
+      <ol class="space-y-8">
+        <li v-for="(item, index) in roles" :key="item.role">
+          <article
+            class="reveal border border-[color:var(--color-border)] bg-[color:var(--color-card)] p-5 transition-colors duration-300 hover:border-[color:var(--color-accent)]/50 sm:p-6"
+            :style="{ transitionDelay: `${index * 100}ms` }"
+          >
+            <header class="flex flex-wrap items-baseline justify-between gap-3">
+              <div>
+                <h3 class="font-display text-lg font-semibold text-[color:var(--color-text)] sm:text-xl">
+                  {{ item.role }}
+                </h3>
+                <p class="mt-1 text-sm text-[color:var(--color-muted)]">{{ item.company }}</p>
+                <p class="mt-1 text-sm text-[color:var(--color-muted)]">{{ item.location }}</p>
+              </div>
+              <p class="text-[11px] uppercase tracking-[0.16em] text-[color:var(--color-accent)]">
+                {{ item.period }}
+              </p>
+            </header>
+          </article>
+        </li>
+      </ol>
+    </div>
 
     <div ref="timelineRef" class="relative pl-8 sm:pl-12">
       <div class="absolute left-3 top-0 h-full w-px bg-[color:var(--color-border)] sm:left-5"></div>
